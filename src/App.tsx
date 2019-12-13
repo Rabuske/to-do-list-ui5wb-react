@@ -1,26 +1,26 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { ThemeProvider } from '@ui5/webcomponents-react/lib/ThemeProvider';
+import { TaskList } from './TaskList';
+import {Task} from './Task'
+import { AddTask } from './AddTask';
 
 const App: React.FC = () => {
+
+  const [tasks, setTasks] = React.useState<Array<Task>>([]);
+
+  const addTask = (task : Task) : void =>  {
+    setTasks([...tasks, task]);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ThemeProvider withToastContainer>
+        <TaskList tasks = {tasks}/>
+        <AddTask addTask = {addTask}/>
+      </ThemeProvider>
     </div>
-  );
+  ); 
 }
 
 export default App;
